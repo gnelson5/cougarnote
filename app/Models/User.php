@@ -45,10 +45,18 @@ class User extends Authenticatable
   ];
 
   /**
-   * Get the posts for this user.
+   * Get the notes created by this user.
    */
   public function notes(): HasMany
   {
     return $this->hasMany(Note::class);
+  }
+
+  /**
+   * Get the folders created by this user.
+   */
+  public function folders(): HasMany
+  {
+    return $this->hasMany(Folder::class);
   }
 }

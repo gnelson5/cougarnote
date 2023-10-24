@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Note extends Model
+class Folder extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['title', 'body'];
+  protected $fillable = ['name'];
 
   /**
-   * Get the user who created this note.
+   * Get the user who created this folder.
    */
   public function user(): BelongsTo
   {
@@ -22,10 +22,10 @@ class Note extends Model
   }
 
   /**
-   * Get the folder for this note.
+   * Get the notes assigned to this folder.
    */
-  public function folder(): HasOne
+  public function notes(): BelongsToMany
   {
-    return $this->hasOne(Folder::class);
+    return $this->belongsToMany(Note::class);
   }
 }
