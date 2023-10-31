@@ -7,6 +7,7 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      @if (count($notes) > 0)
       <ul class="space-y-4">
         @foreach ($notes as $note)
         <li class="p-6 bg-white dark:bg-gray-800 sm:rounded-lg shadow space-y-2">
@@ -26,6 +27,9 @@
         </li>
         @endforeach
       </ul>
+      @else
+      <p class="opacity-75 italic">You don't have any notes saved!</p>
+      @endif
     </div>
   </div>
 </x-app-layout>
