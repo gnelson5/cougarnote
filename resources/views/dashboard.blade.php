@@ -12,7 +12,9 @@
         @foreach ($notes as $note)
         <li class="p-6 bg-white dark:bg-gray-800 sm:rounded-lg shadow space-y-2">
           <div class="flex gap-4 justify-between items-center">
-            <p class="text-lg font-medium">{{ $note->title }}</p>
+            <a href="/notes/{{ $note->id }}" class="text-lg font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">
+              <h3>{{ $note->title }}</h3>
+            </a>
             <form class="contents" action="/notes/{{ $note->id }}" method="POST">
               @csrf
               @method('DELETE')

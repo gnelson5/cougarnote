@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NotesController extends Controller
@@ -13,7 +12,15 @@ class NotesController extends Controller
    */
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->with('user')->with('folder')->get()]);
+    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->get()]);
+  }
+
+  /**
+   * Get the specified note.
+   */
+  public function show(Note $note)
+  {
+    return view('note.view', ['note' => $note]);
   }
 
   /**
