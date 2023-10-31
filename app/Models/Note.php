@@ -24,8 +24,8 @@ class Note extends Model
   /**
    * Get the folder for this note.
    */
-  public function folder(): HasOne
+  public function folder(): BelongsTo
   {
-    return $this->hasOne(Folder::class);
+    return $this->belongsTo(Folder::class);
   }
 }

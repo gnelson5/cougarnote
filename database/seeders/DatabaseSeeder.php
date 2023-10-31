@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
   public function run(): void
   {
     $users = User::factory()
-      ->count(2)
+      ->state(['email' => 'test@user.com', 'password' => 'password', 'name' => 'Test User'])
       ->hasFolders(2)
       ->hasNotes(5)
       ->create();
