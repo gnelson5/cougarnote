@@ -13,7 +13,15 @@ class NotesController extends Controller
    */
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->with('user')->with('folder')->get()]);
+    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->get()]);
+  }
+
+  /**
+   * Get the specified note.
+   */
+  public function show(Note $note)
+  {
+    return view('note', ['note' => $note]);
   }
 
   /**
