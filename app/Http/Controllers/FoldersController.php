@@ -22,4 +22,13 @@ class FoldersController extends Controller
   {
     return view('folder.view', ['folder' => $folder]);
   }
+
+  /**
+   * Delete the specified folder.
+   */
+  public function destroy(Folder $folder)
+  {
+    $folder->delete();
+    return redirect('/folders');
+  }
 }
