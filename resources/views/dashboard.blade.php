@@ -22,6 +22,9 @@
               </button>
             </form>
           </div>
+          @if (!empty($note->folder))
+          <p>Folder: <span class="font-semibold">{{ $note->folder->name }}</span></p>
+          @endif
           <p class="text-gray-800 dark:text-gray-200 line-clamp-4">{{ $note->body }}</p>
           <p class="font-light text-gray-700 dark:text-gray-300">{{ date_format($note->updated_at, 'n-j-Y') }}</p>
         </li>

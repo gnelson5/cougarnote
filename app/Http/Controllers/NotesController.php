@@ -10,7 +10,7 @@ class NotesController extends Controller
 {
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->with('user')->get()]);
+    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->with('user')->with('folder')->get()]);
   }
 
   public function destroy(Note $note)
