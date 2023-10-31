@@ -14,4 +14,12 @@ class FoldersController extends Controller
   {
     return view('folders', ['folders' => Folder::where('user_id', Auth::id())->get()]);
   }
+
+  /**
+   * Get the specified folder.
+   */
+  public function show(Folder $folder)
+  {
+    return view('folder.view', ['folder' => $folder]);
+  }
 }
