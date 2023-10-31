@@ -14,7 +14,7 @@
         <a href="/notes/{{ $note->id }}" class="text-lg font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">
           <h3>{{ $note->title }}</h3>
         </a>
-        <form class="contents" action="/notes/{{ $note->id }}" method="POST">
+        <form class="contents" action="/notes/{{ $note->id }}?redirectTo=/folders/{{ $folder->id }}" method="POST">
           @csrf
           @method('DELETE')
 
