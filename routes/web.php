@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FoldersController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
   Route::get('/dashboard', [NotesController::class, 'index'])->name('dashboard');
   Route::get('/notes/{note}', [NotesController::class, 'show']);
   Route::delete('/notes/{note}', [NotesController::class, 'destroy']);
+
+  Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
 });
 
 require __DIR__ . '/auth.php';
