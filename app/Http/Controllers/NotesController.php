@@ -21,7 +21,7 @@ class NotesController extends Controller
    */
   public function show(Note $note)
   {
-    return view('note', ['note' => $note]);
+    return view('note.view', ['note' => $note]);
   }
 
   /**
