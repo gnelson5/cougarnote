@@ -17,9 +17,9 @@
               @csrf
               @method('DELETE')
 
-              <button type="submit" class="font-semibold text-sm px-2 py-1 rounded-md bg-red-500 text-white outline-none hover:brightness-110 focus-visible:ring focus-visible:ring-gray-900 dark:focus-visible:ring-gray-100">
+              <x-danger-button type="submit" class="tracking-wider font-bold">
                 Delete
-              </button>
+              </x-danger-button>
             </form>
           </div>
           @if (!empty($note->folder))
