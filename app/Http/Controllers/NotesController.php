@@ -12,4 +12,10 @@ class NotesController extends Controller
   {
     return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->with('user')->get()]);
   }
+
+  public function destroy(Note $note)
+  {
+    $note->delete();
+    return redirect(route('dashboard'));
+  }
 }
