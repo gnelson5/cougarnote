@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
   Route::delete('/notes/{note}', [NotesController::class, 'destroy']);
 
   Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
+  Route::get('/folders/{folder}', [FoldersController::class, 'show']);
+  Route::delete('/folders/{folder}', [FoldersController::class, 'destroy']);
 });
 
 require __DIR__ . '/auth.php';

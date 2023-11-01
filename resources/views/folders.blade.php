@@ -11,12 +11,14 @@
       <ul class="space-y-4">
         @foreach ($folders as $folder)
         <li class="p-6 bg-white dark:bg-gray-800 sm:rounded-lg shadow space-y-2">
-          <h3 class="text-xl font-semibold">{{ $folder->name }}</h3>
-          <div class="flex gap-10">
-            <p class="font-light text-gray-700 dark:text-gray-300">{{ date_format($folder->updated_at, 'n-j-Y') }}</p>
+          <a href="/folders/{{ $folder->id }}" class="text-xl font-semibold hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">
+            <h3 class="inline">{{ $folder->name }}</h3>
+          </a>
+          <div class="flex gap-10 items-end">
+            <p class="text-sm text-gray-600 dark:text-gray-400">{{ date_format($folder->updated_at, 'n-j-Y') }}</p>
             <p>
               <span class="font-medium">{{ count($folder->notes) }}</span>
-              <span class="font-light text-gray-700 dark:text-gray-300">Notes</span>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Notes</span>
             </p>
           </div>
         </li>
