@@ -34,6 +34,17 @@ class NotesController extends Controller
   }
 
   /**
+   * Create a new note in database.
+   */
+  public function store(Request $request)
+  {
+    $data = $request->all();
+    $data['user_id'] = Auth::id();
+    Note::create($data);
+    return redirect('/dashboard');
+  }
+
+  /**
    * Delete the specified note.
    */
   public function destroy(Request $request, Note $note)
