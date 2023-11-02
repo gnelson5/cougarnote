@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Folder;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,14 @@ class NotesController extends Controller
   public function show(Note $note)
   {
     return view('note.view', ['note' => $note]);
+  }
+
+  /**
+   * Show the create note form view.
+   */
+  public function create()
+  {
+    return view('note.create', ['folders' => Folder::where('user_id', Auth::id())->get()]);
   }
 
   /**
