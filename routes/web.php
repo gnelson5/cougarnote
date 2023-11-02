@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
   Route::get('/dashboard', [NotesController::class, 'index'])->name('dashboard');
+  Route::get('/notes/create', [NotesController::class, 'create']);
+  Route::post('/notes', [NotesController::class, 'store']);
   Route::get('/notes/{note}', [NotesController::class, 'show']);
   Route::delete('/notes/{note}', [NotesController::class, 'destroy']);
 
