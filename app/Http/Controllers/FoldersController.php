@@ -29,6 +29,6 @@ class FoldersController extends Controller
   public function destroy(Folder $folder)
   {
     $folder->delete();
-    return redirect('/folders');
+    return redirect(route('folders'));
   }
 }

@@ -31,7 +31,7 @@ class NotesController extends Controller
   public function create(Request $request)
   {
     $folder_id = $request->input('folder_id');
-    $redirect_to = empty($folder_id) ? '/dashboard' : '/folders/' . $folder_id;
+    $redirect_to = empty($folder_id) ? route('dashboard') : route('folder.show', ['folder' => $folder_id]);
     return view('note.create', ['folders' => Folder::where('user_id', Auth::id())->orderBy('name')->get(), 'selected_folder' => $folder_id, 'redirect_to' => $redirect_to]);
   }
 
@@ -42,8 +42,9 @@ class NotesController extends Controller
   {
     $data = $request->all();
     $data['user_id'] = Auth::id();
-    Note::create($data);
-    $redirect_to = $request->input('redirect_to');
+    if (!Folder::where('id', $data['folder_id'])->exists()) $data['folder_id'] = null;
+    $note = Note::create($data);
+    $redirect_to = empty($note->folder_id) ? route('dashboard') : route('folder.show', ['folder' => $note->folder_id]);
     return redirect($redirect_to);
   }
 
@@ -58,10 +59,7 @@ class NotesController extends Controller
     Deleting a note outside of it's own view or the dashboard should redirect to a different route
     ex. deleting a note from it's folder should redirect to the same folder view
     */
-    $redirectTo = $request->query('redirectTo');
-    if (!empty($redirectTo)) return redirect($redirectTo);
-
-    // redirect to home page by default
-    return redirect(route('dashboard'));
+    $redirect_to = $request->input('redirect_to', route('dashboard'));
+    return redirect($redirect_to);
   }
 }

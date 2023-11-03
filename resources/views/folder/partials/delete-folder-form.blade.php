@@ -7,7 +7,7 @@
       Once this folder is deleted, it cannot be recovered. Notes in this folder will not be deleted. They will not be assigned to a folder.
     </p>
   </header>
-  <form action="/folders/{{ $folder->id }}" method="POST">
+  <form action="{{ route('folder.destroy', ['folder' => $folder->id]) }}" method="POST">
     @csrf
     @method('DELETE')
     <x-danger-button type="submit">Delete Folder</x-danger-button>

@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/notes/{note}', [NotesController::class, 'show'])->name('note.show');
   Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('note.destroy');
 
-  Route::get('/folders', [FoldersController::class, 'index'])->name('folders')->name('folders');
+  Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
   Route::get('/folders/{folder}', [FoldersController::class, 'show'])->name('folder.show');
   Route::delete('/folders/{folder}', [FoldersController::class, 'destroy'])->name('folder.destroy');
 });

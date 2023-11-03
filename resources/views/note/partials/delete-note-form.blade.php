@@ -7,7 +7,7 @@
       Once this note is deleted, it cannot be recovered.
     </p>
   </header>
-  <form action="/notes/{{ $note->id }}" method="POST">
+  <form action="{{ route('note.destroy', ['note' => $note->id]) }}" method="POST">
     @csrf
     @method('DELETE')
     <x-danger-button type="submit">Delete Note</x-danger-button>
