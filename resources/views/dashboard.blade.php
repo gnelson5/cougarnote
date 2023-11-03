@@ -35,7 +35,9 @@
             <a href="/folders/{{ $note->folder->id }}" class="font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">{{ $note->folder->name }}</a>
           </p>
           @endif
+          @if (!empty($note->body))
           <p class="text-gray-800 dark:text-gray-200 line-clamp-4 whitespace-pre-wrap">{{ $note->body }}</p>
+          @endif
           <p class="text-sm text-gray-600 dark:text-gray-400">{{ date_format($note->updated_at, 'n-j-Y') }}</p>
         </li>
         @endforeach

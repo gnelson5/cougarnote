@@ -23,7 +23,9 @@
           </x-danger-button>
         </form>
       </div>
+      @if (!empty($note->body))
       <p class="text-gray-800 dark:text-gray-200 line-clamp-4">{{ $note->body }}</p>
+      @endif
       <p class="text-sm text-gray-600 dark:text-gray-400">{{ date_format($note->updated_at, 'n-j-Y') }}</p>
     </li>
     @endforeach
