@@ -8,7 +8,7 @@
     </p>
   </header>
   <ul>
-    @foreach ($folder->notes as $note)
+    @foreach ($folder->notes->sortByDesc('updated_at') as $note)
     <li class="space-y-3 border-b last:border-none border-gray-300 dark:border-gray-600 py-6 first:pt-0 last:pb-0">
       <div class="flex gap-4 justify-between items-start">
         <a href="/notes/{{ $note->id }}" class="text-lg font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">

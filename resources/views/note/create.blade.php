@@ -7,7 +7,7 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-      <form action="/notes" method="POST" class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col gap-4">
+      <form action="/notes{{ empty($redirect_to) ? '' : '?redirect_to=' . $redirect_to }}" method="POST" class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col gap-4">
         @csrf
 
         <div>
@@ -25,7 +25,7 @@
           <x-select id="folder" name="folder_id" class="max-w-sm w-full">
             <option>None</option>
             @foreach ($folders as $folder)
-            <option value="{{ $folder->id }}">{{ $folder->name }}</option>
+            <option value="{{ $folder->id }}" {{ $selected_folder == $folder->id ? 'selected' : '' }}>{{ $folder->name }}</option>
             @endforeach
           </x-select>
         </div>
