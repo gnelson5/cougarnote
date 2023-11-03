@@ -14,7 +14,7 @@ class NotesController extends Controller
    */
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->get()]);
+    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->orderByDesc('updated_at')->get()]);
   }
 
   /**

@@ -12,7 +12,7 @@ class FoldersController extends Controller
    */
   public function index()
   {
-    return view('folders', ['folders' => Folder::where('user_id', Auth::id())->get()]);
+    return view('folders', ['folders' => Folder::where('user_id', Auth::id())->orderByDesc('updated_at')->get()]);
   }
 
   /**
