@@ -40,10 +40,20 @@ class NotesController extends Controller
    */
   public function store(Request $request)
   {
-    $data = $request->all();
+    // validate form fields
+    $data = $request->validate([
+      'title' => 'required|string',
+      'body' => 'string|nullable',
+      'folder_id' => 'numeric|exists:folders,id|nullable',
+    ]);
+
+    // add current user id to note data
     $data['user_id'] = Auth::id();
-    if (!Folder::where('id', $data['folder_id'])->exists()) $data['folder_id'] = null;
+
+    // create the note and store it in the database
     $note = Note::create($data);
+
+    // redirect on successful note creation
     $redirect_to = empty($note->folder_id) ? route('dashboard') : route('folder.show', ['folder' => $note->folder_id]);
     return redirect($redirect_to);
   }

@@ -11,8 +11,13 @@
         @csrf
 
         <div>
+          {{ implode('\n', $errors->all()) }}
+        </div>
+
+        <div>
           <x-input-label for="title" :value="__('Title')" />
           <x-text-input id="title" name="title" placeholder="What do you want to call this note?" class="w-full" />
+          <x-input-error :messages="$errors->get('title')" class="mt-2" />
         </div>
 
         <div class="grow">
@@ -23,11 +28,12 @@
         <div>
           <x-input-label for="folder" :value="__('Folder')" />
           <x-select id="folder" name="folder_id" class="max-w-sm w-full">
-            <option>None</option>
+            <option value="{{ null }}">None</option>
             @foreach ($folders as $folder)
             <option value="{{ $folder->id }}" {{ $selected_folder == $folder->id ? 'selected' : '' }}>{{ $folder->name }}</option>
             @endforeach
           </x-select>
+          <x-input-error :messages="$errors->get('folder_id')" class="mt-2" />
         </div>
 
         <div class="flex gap-4 justify-end">
