@@ -67,23 +67,20 @@ class NotesController extends Controller
     // create the note and store it in the database
     $note = Note::create($data);
 
-    // redirect on successful note creation
-    $redirect_to = empty($note->folder_id) ? route('dashboard') : route('folder.show', ['folder' => $note->folder_id]);
-    return redirect($redirect_to);
+    // redirect to note view on successful note creation
+    return redirect(route('note.show', ['note' => $note]));
   }
 
   /**
    * Delete the specified note.
    */
-  public function destroy(Request $request, Note $note)
+  public function destroy(Note $note)
   {
+    // if this note is assigned to a folder, redirect to that folder after
+    // deleting the note
+    // otherwise redirect to the dashboard
+    $redirect_to = empty($note->folder) ? route('dashboard') : route('folder.show', ['folder' => $note->folder]);
     $note->delete();
-
-    /*
-    Deleting a note outside of it's own view or the dashboard should redirect to a different route
-    ex. deleting a note from it's folder should redirect to the same folder view
-    */
-    $redirect_to = $request->input('redirect_to', route('dashboard'));
     return redirect($redirect_to);
   }
 }
