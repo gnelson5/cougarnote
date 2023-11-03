@@ -31,7 +31,7 @@ class NotesController extends Controller
   public function create(Request $request)
   {
     $folder_id = $request->input('folder_id');
-    $redirect_to = empty($folder_id) ? null : '/folders/' . $folder_id;
+    $redirect_to = empty($folder_id) ? '/dashboard' : '/folders/' . $folder_id;
     return view('note.create', ['folders' => Folder::where('user_id', Auth::id())->orderBy('name')->get(), 'selected_folder' => $folder_id, 'redirect_to' => $redirect_to]);
   }
 
@@ -44,7 +44,6 @@ class NotesController extends Controller
     $data['user_id'] = Auth::id();
     Note::create($data);
     $redirect_to = $request->input('redirect_to');
-    if (empty($redirect_to)) $redirect_to = '/dashboard';
     return redirect($redirect_to);
   }
 

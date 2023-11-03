@@ -7,7 +7,7 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-      <form action="/notes{{ empty($redirect_to) ? '' : '?redirect_to=' . $redirect_to }}" method="POST" class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col gap-4">
+      <form action="/notes?redirect_to={{ $redirect_to }}" method="POST" class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col gap-4">
         @csrf
 
         <div>
