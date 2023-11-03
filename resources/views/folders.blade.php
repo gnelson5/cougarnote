@@ -11,7 +11,7 @@
       <ul class="space-y-4">
         @foreach ($folders as $folder)
         <li class="p-6 bg-white dark:bg-gray-800 sm:rounded-lg shadow space-y-2">
-          <a href="/folders/{{ $folder->id }}" class="text-xl font-semibold hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">
+          <a href="{{ route('folder.show', ['folder' => $folder->id]) }}" class="text-xl font-semibold hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">
             <h3 class="inline">{{ $folder->name }}</h3>
           </a>
           <div class="flex gap-10 items-end">

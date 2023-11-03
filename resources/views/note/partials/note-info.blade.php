@@ -16,7 +16,7 @@
     @if (!empty($note->folder))
     <p>
       <span class="text-sm text-gray-600 dark:text-gray-400">Folder:</span>
-      <a href="/folders/{{ $note->folder->id }}" class="font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">{{ $note->folder->name }}</a>
+      <a href="{{ route('folder.show', ['folder' => $note->folder->id]) }}" class="font-medium hover:text-black dark:hover:text-white outline-none focus-visible:text-black dark:focus-visible:text-white underline-offset-2 hover:underline focus-visible:underline">{{ $note->folder->name }}</a>
     </p>
     @endif
   </div>

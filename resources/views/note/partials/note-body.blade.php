@@ -4,5 +4,9 @@
       Note Content
     </h2>
   </header>
+  @if (empty($note->body))
+  <p class="italic text-gray-600 dark:text-gray-400">This note is empty</p>
+  @else
   <p class="whitespace-pre-wrap">{{ $note->body }}</p>
+  @endif
 </section>

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Note extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['title', 'body'];
+  protected $fillable = ['title', 'body', 'user_id', 'folder_id'];
 
   /**
    * Get the user who created this note.

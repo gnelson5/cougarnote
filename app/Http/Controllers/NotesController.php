@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Folder;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class NotesController extends Controller
    */
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->get()]);
+    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->orderByDesc('updated_at')->get()]);
   }
 
   /**
@@ -25,20 +26,61 @@ class NotesController extends Controller
   }
 
   /**
+   * Show the create note form view.
+   */
+  public function create(Request $request)
+  {
+    // default route to redirect to after successful note creation
+    $redirect_to = route('dashboard');
+
+    // when a user creates a note from within a folder view, get the route
+    // to that folder to redirect after successfully creating the note
+    $folder_id = $request->input('folder_id');
+    // validate folder actually exists
+    if (!empty($folder_id)) {
+      if (Folder::where('id', $folder_id)->exists()) {
+        $redirect_to = route('folder.show', ['folder' => $folder_id]);
+      } else {
+        // folder does not exist, so redirect to same route without query params
+        return redirect(route('note.create'));
+      }
+    }
+
+    return view('note.create', ['folders' => Folder::where('user_id', Auth::id())->orderBy('name')->get(), 'selected_folder' => $folder_id, 'redirect_to' => $redirect_to]);
+  }
+
+  /**
+   * Create a new note in database.
+   */
+  public function store(Request $request)
+  {
+    // validate form fields
+    $data = $request->validate([
+      'title' => 'required|string',
+      'body' => 'string|nullable',
+      'folder_id' => 'numeric|exists:folders,id|nullable',
+    ]);
+
+    // add current user id to note data
+    $data['user_id'] = Auth::id();
+
+    // create the note and store it in the database
+    $note = Note::create($data);
+
+    // redirect to note view on successful note creation
+    return redirect(route('note.show', ['note' => $note]));
+  }
+
+  /**
    * Delete the specified note.
    */
-  public function destroy(Request $request, Note $note)
+  public function destroy(Note $note)
   {
+    // if this note is assigned to a folder, redirect to that folder after
+    // deleting the note
+    // otherwise redirect to the dashboard
+    $redirect_to = empty($note->folder) ? route('dashboard') : route('folder.show', ['folder' => $note->folder]);
     $note->delete();
-
-    /*
-    Deleting a note outside of it's own view or the dashboard should redirect to a different route
-    ex. deleting a note from it's folder should redirect to the same folder view
-    */
-    $redirectTo = $request->query('redirectTo');
-    if (!empty($redirectTo)) return redirect($redirectTo);
-
-    // redirect to home page by default
-    return redirect(route('dashboard'));
+    return redirect($redirect_to);
   }
 }

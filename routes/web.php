@@ -26,12 +26,14 @@ Route::middleware('auth')->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
   Route::get('/dashboard', [NotesController::class, 'index'])->name('dashboard');
-  Route::get('/notes/{note}', [NotesController::class, 'show']);
-  Route::delete('/notes/{note}', [NotesController::class, 'destroy']);
+  Route::get('/notes/create', [NotesController::class, 'create'])->name('note.create');
+  Route::post('/notes', [NotesController::class, 'store'])->name('note.store');
+  Route::get('/notes/{note}', [NotesController::class, 'show'])->name('note.show');
+  Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('note.destroy');
 
   Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
-  Route::get('/folders/{folder}', [FoldersController::class, 'show']);
-  Route::delete('/folders/{folder}', [FoldersController::class, 'destroy']);
+  Route::get('/folders/{folder}', [FoldersController::class, 'show'])->name('folder.show');
+  Route::delete('/folders/{folder}', [FoldersController::class, 'destroy'])->name('folder.destroy');
 });
 
 require __DIR__ . '/auth.php';

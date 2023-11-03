@@ -32,5 +32,10 @@ return new class extends Migration
   public function down(): void
   {
     Schema::dropIfExists('folders');
+
+    // Remove foreign key on notes table
+    Schema::table('notes', function (Blueprint $table) {
+      $table->dropColumn('folder_id');
+    });
   }
 };
