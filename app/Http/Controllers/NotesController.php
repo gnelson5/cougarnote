@@ -30,8 +30,22 @@ class NotesController extends Controller
    */
   public function create(Request $request)
   {
+    // default route to redirect to after successful note creation
+    $redirect_to = route('dashboard');
+
+    // when a user creates a note from within a folder view, get the route
+    // to that folder to redirect after successfully creating the note
     $folder_id = $request->input('folder_id');
-    $redirect_to = empty($folder_id) ? route('dashboard') : route('folder.show', ['folder' => $folder_id]);
+    // validate folder actually exists
+    if (!empty($folder_id)) {
+      if (Folder::where('id', $folder_id)->exists()) {
+        $redirect_to = route('folder.show', ['folder' => $folder_id]);
+      } else {
+        // folder does not exist, so redirect to same route without query params
+        return redirect(route('note.create'));
+      }
+    }
+
     return view('note.create', ['folders' => Folder::where('user_id', Auth::id())->orderBy('name')->get(), 'selected_folder' => $folder_id, 'redirect_to' => $redirect_to]);
   }
 
