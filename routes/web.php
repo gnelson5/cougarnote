@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
 
   // Folders
   Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
+  Route::get('/folders/create', [FoldersController::class, 'create'])->name('folder.create');
+  Route::post('/folders', [FoldersController::class, 'store'])->name('folder.store');
   Route::get('/folders/{folder}', [FoldersController::class, 'show'])->name('folder.show');
   Route::delete('/folders/{folder}', [FoldersController::class, 'destroy'])->name('folder.destroy');
 });
