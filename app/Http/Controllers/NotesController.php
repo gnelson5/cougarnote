@@ -14,7 +14,7 @@ class NotesController extends Controller
    */
   public function index()
   {
-    return view('dashboard', ['notes' => Note::where('user_id', Auth::id())->orderByDesc('updated_at')->get()]);
+    return view('notes', ['notes' => Note::where('user_id', Auth::id())->orderByDesc('updated_at')->get()]);
   }
 
   /**
@@ -31,7 +31,7 @@ class NotesController extends Controller
   public function create(Request $request)
   {
     // default route to redirect to after successful note creation
-    $redirect_to = route('dashboard');
+    $redirect_to = route('notes');
 
     // when a user creates a note from within a folder view, get the route
     // to that folder to redirect after successfully creating the note
@@ -78,8 +78,8 @@ class NotesController extends Controller
   {
     // if this note is assigned to a folder, redirect to that folder after
     // deleting the note
-    // otherwise redirect to the dashboard
-    $redirect_to = empty($note->folder) ? route('dashboard') : route('folder.show', ['folder' => $note->folder]);
+    // otherwise redirect to the notes
+    $redirect_to = empty($note->folder) ? route('notes') : route('folder.show', ['folder' => $note->folder]);
     $note->delete();
     return redirect($redirect_to);
   }

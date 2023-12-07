@@ -11,7 +11,7 @@ class Folder extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'user_id'];
 
   /**
    * Get the user who created this folder.

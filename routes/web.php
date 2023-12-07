@@ -21,17 +21,22 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+  // User Profile
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-  Route::get('/dashboard', [NotesController::class, 'index'])->name('dashboard');
+  // Notes
+  Route::get('/notes', [NotesController::class, 'index'])->name('notes');
   Route::get('/notes/create', [NotesController::class, 'create'])->name('note.create');
   Route::post('/notes', [NotesController::class, 'store'])->name('note.store');
   Route::get('/notes/{note}', [NotesController::class, 'show'])->name('note.show');
   Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('note.destroy');
 
+  // Folders
   Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
+  Route::get('/folders/create', [FoldersController::class, 'create'])->name('folder.create');
+  Route::post('/folders', [FoldersController::class, 'store'])->name('folder.store');
   Route::get('/folders/{folder}', [FoldersController::class, 'show'])->name('folder.show');
   Route::delete('/folders/{folder}', [FoldersController::class, 'destroy'])->name('folder.destroy');
 });
