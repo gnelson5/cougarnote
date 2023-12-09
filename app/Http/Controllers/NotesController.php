@@ -83,4 +83,27 @@ class NotesController extends Controller
     $note->delete();
     return redirect($redirect_to);
   }
+
+  //Show Edit Form
+
+  public function edit(Note $note) {
+    $redirect_to = route('notes');
+
+    //Check to see if there is a Folder ID.
+    //Return Null if no Folder ID.
+    if (!empty($note->folder->id)) {
+      $folder_id = $note->folder->id;
+    } else {
+      $folder_id = null;
+    }
+
+    return view('note.edit', ['folders' => Folder::where('user_id', Auth::id())->orderBy('name')->get(), 'selected_folder' => $folder_id, 'redirect_to' => $redirect_to, 'note' => $note]);
+  }
+
+  //Update the specified note.
+  public function update(Request $request, Note $note) {
+    $data = $request->all();
+    $note->update($data);
+    return redirect(route('note.show', ['note' => $note]));
+  }
 }

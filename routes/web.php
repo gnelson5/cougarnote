@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
   Route::post('/notes', [NotesController::class, 'store'])->name('note.store');
   Route::get('/notes/{note}', [NotesController::class, 'show'])->name('note.show');
   Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('note.destroy');
+  Route::get('/notes/edit/{note}', [NotesController::class, 'edit'])->name('note.edit');
+  Route::put('/notes/edit/{note}', [NotesController::class, 'update'])->name('note.update');
+
 
   // Folders
   Route::get('/folders', [FoldersController::class, 'index'])->name('folders');
